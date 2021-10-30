@@ -412,5 +412,81 @@ namespace UnityEditor.UI
 
             return StageUtility.GetStageHandle(canvas.gameObject) == StageUtility.GetCurrentStageHandle();
         }
+
+
+
+        #region SceneMenu
+
+        public static void ShowAddMenu(Graphic graphic)
+        {
+
+            if (graphic != null)
+            {
+                AddMenu("Create/Image", graphic, MenuOptions.AddImage);
+                AddMenu("Create/Text", graphic, MenuOptions.AddText);
+                AddMenu("Create/RawImage", graphic, MenuOptions.AddRawImage);
+                AddMenu("Create/Button", graphic, MenuOptions.AddButton);
+                AddMenu("Create/Slider", graphic, MenuOptions.AddSlider);
+                AddMenu("Create/Toggle", graphic, MenuOptions.AddToggle);
+                AddMenu("Create/InputField", graphic, MenuOptions.AddInputField);
+                AddMenu("Create/Dropdown", graphic, MenuOptions.AddDropdown);
+
+                AddSeparator("Create/");
+                AddMenu("Create/Panel", graphic, MenuOptions.AddPanel);
+                AddMenu("Create/Scrollview", graphic, MenuOptions.AddScrollView);
+
+                mMenu.ShowAsContext();
+                mMenu = null;
+            }
+        }
+
+
+
+
+
+        static GenericMenu mMenu;
+
+        static void AddMenu(string label, Graphic graphic, Action<MenuCommand> action)
+        {
+            if (mMenu == null) mMenu = new GenericMenu();
+            mMenu.AddItem(new GUIContent(label), false, AddFunc, new MenuData(graphic, action));
+        }
+
+
+        static public void AddSeparator(string path)
+        {
+            if (mMenu == null) mMenu = new GenericMenu();
+            mMenu.AddSeparator(path);
+        }
+
+
+        static void AddFunc(object userData)
+        {
+            MenuData md = userData as MenuData;
+            if (md.action != null)
+            {
+                MenuCommand menuCommand = new MenuCommand(md.graphic.gameObject);
+                md.action(menuCommand);
+            }
+        }
+
+
+        public class MenuData
+        {
+            public Graphic graphic;
+            public Action<MenuCommand> action;
+
+
+            public MenuData(Graphic graphic, Action<MenuCommand> action)
+            {
+                this.graphic = graphic;
+                this.action = action;
+            }
+        }
+
+        #endregion
+
+
+
     }
 }

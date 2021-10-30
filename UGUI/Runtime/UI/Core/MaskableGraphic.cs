@@ -108,6 +108,7 @@ namespace UnityEngine.UI
                 if (maskable)
                 {
                     var rootCanvas = MaskUtilities.FindRootSortOverrideCanvas(transform);
+                    //TODO:改为NGUI的层级关系
                     m_StencilValue = MaskUtilities.GetStencilDepth(transform, rootCanvas);
                 }
                 else

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
@@ -148,5 +149,28 @@ namespace UnityEditor.UI
                 }
             }
         }
+
+
+
+        public void OnSceneGUI()
+        {
+            if (Selection.objects.Length > 1) return;
+
+            Graphic graphic = target as Graphic;
+
+            Event e = Event.current;
+            int id = GUIUtility.GetControlID(FocusType.Passive);
+            EventType type = e.GetTypeForControl(id);
+
+            if (type == EventType.MouseUp)
+            {
+                if (e.button == 1)
+                {
+                    MenuOptions.ShowAddMenu(graphic);
+                    e.Use();
+                }
+            }
+        }
+
     }
 }
