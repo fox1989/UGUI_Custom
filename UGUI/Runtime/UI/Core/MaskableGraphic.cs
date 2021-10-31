@@ -35,7 +35,7 @@ namespace UnityEngine.UI
         protected bool m_IncludeForMasking = false;
 
         [Serializable]
-        public class CullStateChangedEvent : UnityEvent<bool> {}
+        public class CullStateChangedEvent : UnityEvent<bool> { }
 
         // Event delegates triggered on click.
         [SerializeField]
@@ -96,6 +96,11 @@ namespace UnityEngine.UI
         [NonSerialized]
         protected int m_StencilValue;
 
+
+        [SerializeField]
+        public int m_Depth = 0;
+
+
         /// <summary>
         /// See IMaterialModifier.GetModifiedMaterial
         /// </summary>
@@ -114,6 +119,10 @@ namespace UnityEngine.UI
                 else
                     m_StencilValue = 0;
 
+                //m_Depth = m_StencilValue;
+
+
+                //m_StencilValue = m_Depth;
                 m_ShouldRecalculateStencil = false;
             }
 
@@ -219,7 +228,7 @@ namespace UnityEngine.UI
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         [Obsolete("Not used anymore.", true)]
-        public virtual void ParentMaskStateChanged() {}
+        public virtual void ParentMaskStateChanged() { }
 
         protected override void OnCanvasHierarchyChanged()
         {

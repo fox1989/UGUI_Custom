@@ -11,7 +11,7 @@ namespace UnityEditor.UI
     /// Custom Editor for the GridLayout Component.
     /// Extend this class to write a custom editor for a component derived from GridLayout.
     /// </summary>
-    public class GridLayoutGroupEditor : Editor
+    public class GridLayoutGroupEditor : UIBehaviourEditor
     {
         SerializedProperty m_Padding;
         SerializedProperty m_CellSize;

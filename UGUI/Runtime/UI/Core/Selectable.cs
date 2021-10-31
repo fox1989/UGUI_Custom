@@ -202,7 +202,7 @@ namespace UnityEngine.UI
         /// }
         /// </code>
         /// </example>
-        public Navigation        navigation        { get { return m_Navigation; } set { if (SetPropertyUtility.SetStruct(ref m_Navigation, value))        OnSetProperty(); } }
+        public Navigation navigation { get { return m_Navigation; } set { if (SetPropertyUtility.SetStruct(ref m_Navigation, value)) OnSetProperty(); } }
 
         /// <summary>
         /// The type of transition that will be applied to the targetGraphic when the state changes.
@@ -225,7 +225,7 @@ namespace UnityEngine.UI
         /// }
         /// </code>
         /// </example>
-        public Transition        transition        { get { return m_Transition; } set { if (SetPropertyUtility.SetStruct(ref m_Transition, value))        OnSetProperty(); } }
+        public Transition transition { get { return m_Transition; } set { if (SetPropertyUtility.SetStruct(ref m_Transition, value)) OnSetProperty(); } }
 
         /// <summary>
         /// The ColorBlock for this selectable object.
@@ -251,7 +251,7 @@ namespace UnityEngine.UI
         /// }
         /// </code>
         /// </example>
-        public ColorBlock        colors            { get { return m_Colors; } set { if (SetPropertyUtility.SetStruct(ref m_Colors, value))            OnSetProperty(); } }
+        public ColorBlock colors { get { return m_Colors; } set { if (SetPropertyUtility.SetStruct(ref m_Colors, value)) OnSetProperty(); } }
 
         /// <summary>
         /// The SpriteState for this selectable object.
@@ -280,7 +280,7 @@ namespace UnityEngine.UI
         // }
         // </code>
         // </example>
-        public SpriteState       spriteState       { get { return m_SpriteState; } set { if (SetPropertyUtility.SetStruct(ref m_SpriteState, value))       OnSetProperty(); } }
+        public SpriteState spriteState { get { return m_SpriteState; } set { if (SetPropertyUtility.SetStruct(ref m_SpriteState, value)) OnSetProperty(); } }
 
         /// <summary>
         /// The AnimationTriggers for this selectable object.
@@ -312,7 +312,7 @@ namespace UnityEngine.UI
         /// }
         /// </code>
         /// </example>
-        public Graphic           targetGraphic     { get { return m_TargetGraphic; } set { if (SetPropertyUtility.SetClass(ref m_TargetGraphic, value))     OnSetProperty(); } }
+        public Graphic targetGraphic { get { return m_TargetGraphic; } set { if (SetPropertyUtility.SetClass(ref m_TargetGraphic, value)) OnSetProperty(); } }
 
         /// <summary>
         /// Is this object interactable.
@@ -341,7 +341,7 @@ namespace UnityEngine.UI
         /// }
         /// </code>
         /// </example>
-        public bool              interactable
+        public bool interactable
         {
             get { return m_Interactable; }
             set
@@ -355,12 +355,12 @@ namespace UnityEngine.UI
             }
         }
 
-        private bool             isPointerInside   { get; set; }
-        private bool             isPointerDown     { get; set; }
-        private bool             hasSelection      { get; set; }
+        private bool isPointerInside { get; set; }
+        private bool isPointerDown { get; set; }
+        private bool hasSelection { get; set; }
 
         protected Selectable()
-        {}
+        { }
 
         /// <summary>
         /// Convenience function that converts the referenced Graphic to a Image, if possible.
@@ -518,7 +518,7 @@ namespace UnityEngine.UI
                 DoStateTransition(currentSelectionState, true);
             else
 #endif
-            DoStateTransition(currentSelectionState, false);
+                DoStateTransition(currentSelectionState, false);
         }
 
         // Remove from the list.

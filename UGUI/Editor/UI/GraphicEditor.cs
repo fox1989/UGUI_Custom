@@ -13,7 +13,7 @@ namespace UnityEditor.UI
 
     [CustomEditor(typeof(MaskableGraphic), false)]
     [CanEditMultipleObjects]
-    public class GraphicEditor : Editor
+    public class GraphicEditor : UIBehaviourEditor
     {
         protected SerializedProperty m_Script;
         protected SerializedProperty m_Color;
@@ -21,6 +21,9 @@ namespace UnityEditor.UI
         protected SerializedProperty m_RaycastTarget;
         protected SerializedProperty m_RaycastPadding;
         protected SerializedProperty m_Maskable;
+
+        protected SerializedProperty m_Depth;
+
 
         private GUIContent m_CorrectButtonContent;
         protected AnimBool m_ShowNativeSize;
@@ -53,6 +56,10 @@ namespace UnityEditor.UI
             m_RaycastTarget = serializedObject.FindProperty("m_RaycastTarget");
             m_RaycastPadding = serializedObject.FindProperty("m_RaycastPadding");
             m_Maskable = serializedObject.FindProperty("m_Maskable");
+
+            m_Depth = serializedObject.FindProperty("m_Depth");
+
+
 
             m_ShowNativeSize = new AnimBool(false);
             m_ShowNativeSize.valueChanged.AddListener(Repaint);
@@ -109,6 +116,9 @@ namespace UnityEditor.UI
         protected void MaskableControlsGUI()
         {
             EditorGUILayout.PropertyField(m_Maskable);
+
+            EditorGUILayout.PropertyField(m_Depth);
+
         }
 
         /// <summary>
@@ -152,25 +162,25 @@ namespace UnityEditor.UI
 
 
 
-        public void OnSceneGUI()
-        {
-            if (Selection.objects.Length > 1) return;
+        //public void OnSceneGUI()
+        //{
+        //    if (Selection.objects.Length > 1) return;
 
-            Graphic graphic = target as Graphic;
+        //    Graphic graphic = target as Graphic;
 
-            Event e = Event.current;
-            int id = GUIUtility.GetControlID(FocusType.Passive);
-            EventType type = e.GetTypeForControl(id);
+        //    Event e = Event.current;
+        //    int id = GUIUtility.GetControlID(FocusType.Passive);
+        //    EventType type = e.GetTypeForControl(id);
 
-            if (type == EventType.MouseUp)
-            {
-                if (e.button == 1)
-                {
-                    MenuOptions.ShowAddMenu(graphic);
-                    e.Use();
-                }
-            }
-        }
+        //    if (type == EventType.MouseUp)
+        //    {
+        //        if (e.button == 1)
+        //        {
+        //            MenuOptions.ShowAddMenu(graphic);
+        //            e.Use();
+        //        }
+        //    }
+        //}
 
     }
 }

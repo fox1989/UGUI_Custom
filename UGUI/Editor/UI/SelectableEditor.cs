@@ -12,7 +12,7 @@ namespace UnityEditor.UI
     /// Custom Editor for the Selectable Component.
     /// Extend this class to write a custom editor for a component derived from Selectable.
     /// </summary>
-    public class SelectableEditor : Editor
+    public class SelectableEditor : UIBehaviourEditor
     {
         SerializedProperty m_Script;
         SerializedProperty m_InteractableProperty;

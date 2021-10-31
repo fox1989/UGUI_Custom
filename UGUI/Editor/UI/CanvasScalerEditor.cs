@@ -9,7 +9,7 @@ namespace UnityEditor.UI
     ///   Custom Editor for the CanvasScaler component.
     ///   Extend this class to write a custom editor for a component derived from CanvasScaler.
     /// </summary>
-    public class CanvasScalerEditor : Editor
+    public class CanvasScalerEditor : UIBehaviourEditor
     {
         SerializedProperty m_UiScaleMode;
         SerializedProperty m_ScaleFactor;
