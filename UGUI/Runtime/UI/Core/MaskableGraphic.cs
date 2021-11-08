@@ -119,7 +119,7 @@ namespace UnityEngine.UI
                 else
                     m_StencilValue = 0;
 
-                //m_Depth = m_StencilValue;
+                m_Depth = canvasRenderer.absoluteDepth;
 
 
                 //m_StencilValue = m_Depth;
