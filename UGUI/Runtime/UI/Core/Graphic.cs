@@ -206,7 +206,7 @@ namespace UnityEngine.UI
         [NonSerialized] protected UnityAction m_OnDirtyVertsCallback;
         [NonSerialized] protected UnityAction m_OnDirtyMaterialCallback;
 
-        [NonSerialized] protected static Mesh s_Mesh;
+        [NonSerialized] protected Mesh s_Mesh;
         [NonSerialized] private static readonly VertexHelper s_VertexHelper = new VertexHelper();
 
         [NonSerialized] protected Mesh m_CachedMesh;
@@ -462,7 +462,10 @@ namespace UnityEngine.UI
         {
             get
             {
-                return (m_Material != null) ? m_Material : defaultMaterial;
+                return (m_Material != null) ? m_Material : new Material(defaultMaterial);
+
+
+                //return (m_Material != null) ? m_Material : defaultMaterial;
             }
             set
             {
@@ -607,8 +610,8 @@ namespace UnityEngine.UI
         /// </remarks>
         public virtual void Rebuild(CanvasUpdate update)
         {
-            if (canvasRenderer == null || canvasRenderer.cull)
-                return;
+            //if (canvasRenderer == null || canvasRenderer.cull)
+            //    return;
 
             switch (update)
             {
@@ -628,11 +631,14 @@ namespace UnityEngine.UI
         }
 
         public virtual void LayoutComplete()
-        {}
+        { }
 
         public virtual void GraphicUpdateComplete()
-        {}
+        { }
 
+
+        MeshRenderer meshRenderer;
+        MeshFilter meshFilter;
         /// <summary>
         /// Call to update the Material of the graphic onto the CanvasRenderer.
         /// </summary>
@@ -641,9 +647,18 @@ namespace UnityEngine.UI
             if (!IsActive())
                 return;
 
-            canvasRenderer.materialCount = 1;
-            canvasRenderer.SetMaterial(materialForRendering, 0);
-            canvasRenderer.SetTexture(mainTexture);
+
+            if (meshRenderer == null)
+            {
+                meshRenderer = gameObject.AddComponent<MeshRenderer>();
+                meshRenderer.hideFlags = HideFlags.HideInInspector;
+            }
+
+            meshRenderer.material = material;
+            material.mainTexture = mainTexture;
+            //canvasRenderer.materialCount = 1;
+            //canvasRenderer.SetMaterial(materialForRendering, 0);
+            //canvasRenderer.SetTexture(mainTexture);
         }
 
         /// <summary>
@@ -677,7 +692,9 @@ namespace UnityEngine.UI
             ListPool<Component>.Release(components);
 
             s_VertexHelper.FillMesh(workerMesh);
-            canvasRenderer.SetMesh(workerMesh);
+            SetMesh(workerMesh);
+
+            //canvasRenderer.SetMesh(workerMesh);
         }
 
         private void DoLegacyMeshGeneration()
@@ -704,10 +721,26 @@ namespace UnityEngine.UI
             }
 
             ListPool<Component>.Release(components);
-            canvasRenderer.SetMesh(workerMesh);
+
+            SetMesh(workerMesh);
+            //canvasRenderer.SetMesh(workerMesh);
         }
 
-        protected static Mesh workerMesh
+
+        void SetMesh(Mesh mesh)
+        {
+
+
+
+            if (meshFilter == null)
+                meshFilter = gameObject.AddComponent<MeshFilter>();
+
+            meshFilter.mesh = mesh;
+        }
+
+
+
+        protected Mesh workerMesh
         {
             get
             {
@@ -722,7 +755,7 @@ namespace UnityEngine.UI
         }
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         [Obsolete("Use OnPopulateMesh instead.", true)]
-        protected virtual void OnFillVBO(System.Collections.Generic.List<UIVertex> vbo) {}
+        protected virtual void OnFillVBO(System.Collections.Generic.List<UIVertex> vbo) { }
 
         [Obsolete("Use OnPopulateMesh(VertexHelper vh) instead.", false)]
         /// <summary>
@@ -802,7 +835,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// Make the Graphic have the native size of its content.
         /// </summary>
-        public virtual void SetNativeSize() {}
+        public virtual void SetNativeSize() { }
 
         /// <summary>
         /// When a GraphicRaycaster is raycasting into the scene it does two things. First it filters the elements using their RectTransform rect. Then it uses this Raycast function to determine the elements hit by the raycast.
@@ -943,7 +976,7 @@ namespace UnityEngine.UI
                 ColorTween.ColorTweenMode.All :
                 (useRGB ? ColorTween.ColorTweenMode.RGB : ColorTween.ColorTweenMode.Alpha));
 
-            var colorTween = new ColorTween {duration = duration, startColor = canvasRenderer.GetColor(), targetColor = targetColor};
+            var colorTween = new ColorTween { duration = duration, startColor = canvasRenderer.GetColor(), targetColor = targetColor };
             colorTween.AddOnChangedCallback(canvasRenderer.SetColor);
             colorTween.ignoreTimeScale = ignoreTimeScale;
             colorTween.tweenMode = mode;

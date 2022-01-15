@@ -10,7 +10,7 @@ namespace UnityEngine.UI
     /// Image is a textured element in the UI hierarchy.
     /// </summary>
 
-    [RequireComponent(typeof(CanvasRenderer))]
+    //[RequireComponent(typeof(CanvasRenderer))]
     [AddComponentMenu("UI/Image", 11)]
     /// <summary>
     ///   Displays a Sprite inside the UI System.
@@ -748,7 +748,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// See ISerializationCallbackReceiver.
         /// </summary>
-        public virtual void OnBeforeSerialize() {}
+        public virtual void OnBeforeSerialize() { }
 
         /// <summary>
         /// See ISerializationCallbackReceiver.
@@ -903,7 +903,8 @@ namespace UnityEngine.UI
 
             if (activeSprite == null)
             {
-                canvasRenderer.SetAlphaTexture(null);
+                //canvasRenderer.SetAlphaTexture(null);
+                material.mainTexture = s_WhiteTexture;
                 return;
             }
 
@@ -911,7 +912,7 @@ namespace UnityEngine.UI
 
             if (alphaTex != null)
             {
-                canvasRenderer.SetAlphaTexture(alphaTex);
+                //canvasRenderer.SetAlphaTexture(alphaTex);
             }
         }
 
@@ -1690,12 +1691,12 @@ namespace UnityEngine.UI
         /// <summary>
         /// See ILayoutElement.CalculateLayoutInputHorizontal.
         /// </summary>
-        public virtual void CalculateLayoutInputHorizontal() {}
+        public virtual void CalculateLayoutInputHorizontal() { }
 
         /// <summary>
         /// See ILayoutElement.CalculateLayoutInputVertical.
         /// </summary>
-        public virtual void CalculateLayoutInputVertical() {}
+        public virtual void CalculateLayoutInputVertical() { }
 
         /// <summary>
         /// See ILayoutElement.minWidth.

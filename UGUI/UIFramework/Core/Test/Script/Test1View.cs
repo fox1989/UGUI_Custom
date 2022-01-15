@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.U2D;
 
 namespace Assets.Scripts.UI.Test.Script
 {
     public class Test1View : View<Test1Controller>
     {
 
-
+        public SpriteAtlas sprite;
 
         public void GoToTest2()
         {
             UIManager.Ins.Next(new Test2Controller());
+            
         }
 
 

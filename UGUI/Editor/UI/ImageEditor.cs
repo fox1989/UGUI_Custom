@@ -286,7 +286,8 @@ namespace UnityEditor.UI
             Sprite sf = image.sprite;
             if (sf == null) return;
 
-            SpriteDrawUtility.DrawSprite(sf, rect, image.canvasRenderer.GetColor());
+            SpriteDrawUtility.DrawSprite(sf, rect, Color.white);
+
         }
 
         /// <summary>
